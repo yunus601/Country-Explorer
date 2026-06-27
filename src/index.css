@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+@theme {
+  /* ----------------------------------------------------
+     🎨 COLOR PALETTE
+     ---------------------------------------------------- */
+
+  /* Brand & Action Colors */
+  --color-brand-blue: #1d4ed8; /* Primary action buttons & links */
+  --color-brand-light: #eff6ff; /* Soft badge background tint */
+  --color-brand-accent: #3b82f6; /* Secondary blue highlights */
+
+  /* Neutral Canvas Colors */
+  --color-neutral-app-bg: #f8fafc; /* App background layout */
+  --color-neutral-card-bg: #ffffff; /* Solid white container cards */
+  --color-neutral-border: #e2e8f0; /* Table lines & card outlines */
+
+  /* Typography Colors */
+  --color-text-primary: #0f172a; /* High-contrast headings & titles */
+  --color-text-secondary: #475569; /* Muted metadata labels & descriptions */
+
+  /* ----------------------------------------------------
+     🔤 TYPOGRAPHY
+     ---------------------------------------------------- */
+
+  /* Clean geometric sans-serif optimized for data display */
+  --font-sans:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
