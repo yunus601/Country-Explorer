@@ -22,7 +22,9 @@ function RegionsCard({ region, src, countries }) {
       <div className="space-y-4 p-6 ">
         <div className="py-4 border-b-2 border-text-primary">
           <span>
-            <h3 className="text-2xl font-semibold text-slate-900">{name}</h3>
+            <h3 className="text-2xl font-semibold text-slate-900 uppercase tracking-wider">
+              {name}
+            </h3>
           </span>
           <span></span>
         </div>
