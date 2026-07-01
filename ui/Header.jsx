@@ -13,7 +13,7 @@ function Header() {
         </span>
         Countries Explorer
       </Link>
-      <ul className="hidden  md:flex gap-24 px-2 text-2xl justify-between">
+      <ul className="hidden  sm:flex gap-24 px-6 text-2xl justify-between lg:px-24">
         <li className="list-none mr-4">
           <NavLink
             to="/"
@@ -52,60 +52,62 @@ function Header() {
         </li>
       </ul>
 
-      <button className="cursor-pointer" onClick={() => setOpenMenu(true)}>
+      <button
+        className={`${openMenu ? "hidden" : "block"} cursor-pointer sm:hidden block`}
+        onClick={() => setOpenMenu(true)}
+      >
         <FaBars size="20px" />
       </button>
 
       {/* Mobile Navbar */}
-
-      {openMenu && (
-        <ul
-          className={` transition-all duration-300 ease-in-out translate-x-1 flex flex-col py-6 fixed top-0 left-1/2 z-99  items-center  bg-slate-950 w-auto rounded-lg height-auto text-slate-50 right-0 bottom-1/2  gap-24  text-2xl justify-center`}
+      {/* {openMenu && ( */}
+      <ul
+        className={`overflow-hidden ${openMenu ? "translate-x-0" : "translate-x-96"} sm:hidden w-1/2 rounded-2xl z-99  fixed top-0 right-0 max-w-xs  transition-all duration-300 ease-in-out   flex flex-col py-6    items-center  bg-neutral-900   text-slate-50   gap-16 px-4    text-2xl justify-center`}
+      >
+        <button
+          className="absolute right-4 top-4   cursor-pointer"
+          onClick={() => setOpenMenu(false)}
         >
-          <button
-            className="self-end px-4 cursor-pointer"
-            onClick={() => setOpenMenu(false)}
+          <FaX />
+        </button>
+        <li className="list-none mr-4 mt-12">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "text-brand-accent font-semibold"
+                : "text-slate-50 font-semibold"
+            }
           >
-            <FaX />
-          </button>
-          <li className="list-none mr-4 mt-0">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-brand-blue font-semibold"
-                  : "text-slate-50 font-semibold"
-              }
-            >
-              Explore
-            </NavLink>
-          </li>
-          <li className="list-none mr-4">
-            <NavLink
-              to="compare"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-brand-blue font-semibold"
-                  : "text-slate-50 font-semibold"
-              }
-            >
-              Compare
-            </NavLink>
-          </li>
-          <li className="list-none">
-            <NavLink
-              to="regions"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-brand-blue font-semibold"
-                  : "text-slate-50 font-semibold"
-              }
-            >
-              Regions
-            </NavLink>
-          </li>
-        </ul>
-      )}
+            Explore
+          </NavLink>
+        </li>
+        <li className="list-none mr-4">
+          <NavLink
+            to="compare"
+            className={({ isActive }) =>
+              isActive
+                ? "text-brand-accent font-semibold"
+                : "text-slate-50 font-semibold"
+            }
+          >
+            Compare
+          </NavLink>
+        </li>
+        <li className="list-none">
+          <NavLink
+            to="regions"
+            className={({ isActive }) =>
+              isActive
+                ? "text-brand-accent font-semibold"
+                : "text-slate-50 font-semibold"
+            }
+          >
+            Regions
+          </NavLink>
+        </li>
+      </ul>
+      {/* )} */}
     </header>
   );
 }

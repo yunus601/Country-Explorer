@@ -20,7 +20,7 @@ function CountryList({ filteredCountries, isError, isPending, error }) {
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-18">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-18">
         {showAll
           ? filteredCountries.map((country) => (
               <CountryCard country={country} key={country.uuid} />
