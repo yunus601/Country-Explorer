@@ -7,20 +7,20 @@ function Header() {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-neutral-border bg-neutral-card-bg/95 backdrop-blur-xs px-6 sm:px-12 py-6 text-text-primary uppercase tracking-widest font-semibold shadow-xs">
+    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-neutral-border bg-neutral-card-bg/90 backdrop-blur-md px-5 sm:px-8 lg:px-12 py-4 text-text-primary uppercase tracking-widest font-semibold">
       {/* Brand Logo with Editorial Display Font */}
       <Link
         to="/"
-        className="text-2xl sm:text-3xl font-display tracking-tight normal-case font-bold flex gap-3 items-center text-text-primary hover:opacity-90 transition-opacity"
+        className="text-xl sm:text-2xl font-display tracking-tight normal-case font-bold flex gap-3 items-center text-text-primary hover:text-brand-blue transition-colors"
       >
-        <span className="text-brand-blue text-2xl">
+        <span className="text-brand-accent text-xl">
           <FaGlobeAmericas />
         </span>
         <span className="font-bold">Countries Explorer</span>
       </Link>
 
       {/* Desktop Navigation */}
-      <ul className="hidden sm:flex gap-12 lg:gap-20 px-6 text-xl justify-between items-center">
+      <ul className="hidden sm:flex gap-8 lg:gap-12 px-6 text-sm justify-between items-center">
         <li className="list-none">
           <NavLink
             to="/"
@@ -91,7 +91,7 @@ function Header() {
         } sm:hidden w-4/5 rounded-l-2xl z-50 fixed top-0 right-0 max-w-xs transition-all duration-300 ease-in-out flex flex-col py-8 items-center bg-neutral-card-bg border-l border-neutral-border text-text-primary gap-10 px-6 text-2xl justify-center shadow-xl`}
       >
         <button
-          className="absolute right-6 top-6 p-2 cursor-pointer text-text-secondary hover:text-text-primary"
+          className="absolute right-6 top-6 p-2 cursor-pointer text-text-secondary hover:text-text-primary focus-visible:outline-2 focus-visible:outline-brand-accent"
           onClick={() => setOpenMenu(false)}
           aria-label="Close menu"
         >

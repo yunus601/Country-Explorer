@@ -10,7 +10,12 @@ function Home() {
   const regionParam = searchParams.get("region") || "";
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { countries = [], isPending, isError, error } = useCountries(regionParam);
+  const {
+    countries = [],
+    isPending,
+    isError,
+    error,
+  } = useCountries(regionParam);
 
   const debouncedValue = useDebounce(searchTerm, 150);
   const targetText = debouncedValue.trim().toLowerCase();
@@ -43,25 +48,27 @@ function Home() {
   }, [countries, targetText]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       {/* Editorial Index Masthead */}
-      <header className="border-b border-neutral-border pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <header className="border-b border-neutral-border pb-8 flex flex-col md:flex-row md:items-end justify-between gap-8 animate-rise-in">
         <div className="space-y-2">
-          <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-blue block">
+          <span className="font-mono text-[11px] uppercase font-bold tracking-[0.18em] text-brand-accent block">
             Almanac &bull; Geopolitical Index
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-text-primary">
+          <h1 className="font-display text-4xl sm:text-6xl font-bold tracking-tight text-text-primary leading-[0.95] max-w-3xl">
             Sovereign Nations Directory
           </h1>
-          <p className="text-text-secondary text-xl max-w-2xl font-normal leading-relaxed">
-            Examine international demographics, territorial divisions, and geopolitical data across all five continents.
+          <p className="text-text-secondary text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+            Examine international demographics, territorial divisions, and
+            geopolitical data across all five continents.
           </p>
         </div>
 
         {/* Counter Badge */}
         <div className="shrink-0">
-          <span className="font-mono text-xs uppercase font-bold tracking-wider text-text-secondary bg-neutral-card-bg px-4 py-2 rounded-lg border border-neutral-border shadow-2xs">
-            {filteredCountries.length} {filteredCountries.length === 1 ? "Territory" : "Territories"}
+          <span className="font-mono text-[11px] uppercase font-bold tracking-wider text-text-secondary bg-neutral-card-bg px-3 py-2 rounded-sm border border-neutral-border shadow-sm">
+            {filteredCountries.length}{" "}
+            {filteredCountries.length === 1 ? "Territory" : "Territories"}
           </span>
         </div>
       </header>

@@ -13,7 +13,11 @@ function CountryList({ filteredCountries = [], isError, isPending, error }) {
   }
 
   if (isError) {
-    return <p className="text-xl text-red-500 text-center">{error?.message || "Failed to load countries"}</p>;
+    return (
+      <p className="text-xl text-red-500 text-center">
+        {error?.message || "Failed to load countries"}
+      </p>
+    );
   }
 
   if (!filteredCountries || filteredCountries.length === 0) {
@@ -28,7 +32,7 @@ function CountryList({ filteredCountries = [], isError, isPending, error }) {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6">
         {countriesToRender.map((country, idx) => (
           <CountryCard
             country={country}

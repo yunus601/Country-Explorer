@@ -6,9 +6,10 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: #faf8f5;
+  background-color: #f4f1eb;
   color: #0a192f;
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
 @theme {
@@ -23,10 +24,10 @@ body {
   --color-brand-dark: #0f172a;
 
   /* Archival Linen & Stone Neutrals */
-  --color-neutral-app-bg: #faf8f5;
-  --color-neutral-card-bg: #ffffff;
-  --color-neutral-border: #e5e0d8;
-  --color-neutral-subtle: #f1ede5;
+  --color-neutral-app-bg: #f4f1eb;
+  --color-neutral-card-bg: #fffdf9;
+  --color-neutral-border: #dcd5ca;
+  --color-neutral-subtle: #ebe6dc;
 
   /* Deep Ink Typography */
   --color-text-primary: #0a192f;
@@ -45,8 +46,35 @@ body {
 .bg-carto-grid {
   background-size: 40px 40px;
   background-image:
-    linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+}
+
+::selection {
+  background: #1e3a8a;
+  color: #fffdf9;
+}
+
+button,
+a,
+select,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise-in {
+  animation: rise-in 500ms ease-out both;
 }
 
 /* Custom Scrollbars */
