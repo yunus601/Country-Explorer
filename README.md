@@ -45,6 +45,22 @@
 
 ---
 
+## 🎨 Design Philosophy & Typography
+
+Crafted with an **Editorial Atlas & Swiss Modernist Cartography** aesthetic, **Countries Explorer** avoids generic boilerplate patterns (such as purple gradients, saturated neon cards, and overused default fonts) in favor of a timeless, scholarly atlas design:
+
+* **Archival Parchment Foundation** (`#faf8f5`): A warm, tactile linen canvas inspired by classic physical atlases and institutional almanacs.
+* **Prussian Ink Typography** (`#0a192f` / `#526175`): High-contrast, publication-grade reading experience with zero eye strain.
+* **Deep Lapis & Terracotta Accents** (`#1e3a8a` & `#c2410c`): Purposeful comparative markers and navigation accents rooted in historic map engraving.
+* **Distinguished Three-Tier Typography**:
+  - **Editorial Display Serif**: [Fraunces](https://fonts.google.com/specimen/Fraunces) — Imbues sovereign country titles and page mastheads with character and institutional authority.
+  - **Functional Sans**: [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) — Highly legible geometric sans-serif for UI controls, navigation, and body copy.
+  - **Cartographic Monospace**: [Space Mono](https://fonts.google.com/specimen/Space+Mono) — Renders ISO-3166 codes, population numbers, and geographical coordinates with ledger precision.
+* **Cartographic Linework**: Subtle grid rules and hairline borders (`#e5e0d8`) evoking architectural drafting paper.
+
+
+---
+
 ## 📁 Project Structure
 
 ```text

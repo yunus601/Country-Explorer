@@ -24,17 +24,20 @@ function Compare() {
   if (isError) return <p className="text-xl text-red-500 text-center py-12">Error loading countries: {error?.message}</p>;
 
   return (
-    <div className="py-6 px-4 sm:px-8 lg:px-16 space-y-12">
-      <div className="flex mx-auto flex-col items-center justify-center gap-4">
-        <h2 className="font-bold text-4xl text-text-primary">
-          Compare Countries
-        </h2>
-        <p className="text-xl text-text-secondary font-medium text-center max-w-3xl">
-          Analyze the demographic differences between two different countries
+    <div className="py-6 px-4 sm:px-8 space-y-12">
+      <div className="flex mx-auto flex-col items-center justify-center gap-3 text-center max-w-3xl">
+        <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-blue">
+          Comparative Analysis &bull; Bi-National Benchmarking
+        </span>
+        <h1 className="font-display font-bold text-4xl sm:text-5xl text-text-primary tracking-tight">
+          Compare Sovereign Territories
+        </h1>
+        <p className="text-xl text-text-secondary font-normal">
+          Examine demographic distributions, territorial landmass, and administrative systems between two nations.
         </p>
       </div>
 
-      <div className="w-full flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-8 lg:gap-24 relative">
+      <div className="w-full flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-8 lg:gap-16 relative max-w-6xl mx-auto">
         <CompareCard
           value="A"
           defaultCountry={activeCountryA}
@@ -42,7 +45,7 @@ function Compare() {
           onSelectCountry={setSelectedCountryA}
         />
 
-        <div className="uppercase bg-violet-950 font-bold rounded-full p-6 text-violet-50 text-2xl lg:p-10 lg:text-3xl tracking-wider flex items-center justify-center shrink-0 shadow-md sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 z-10">
+        <div className="uppercase bg-[#0a192f] text-neutral-subtle font-mono font-bold rounded-full w-14 h-14 sm:w-16 sm:h-16 text-lg tracking-widest flex items-center justify-center shrink-0 border border-neutral-border shadow-sm sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 z-10">
           vs
         </div>
 

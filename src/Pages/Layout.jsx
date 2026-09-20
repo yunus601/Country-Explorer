@@ -5,13 +5,11 @@ import Footer from "../../ui/Footer";
 
 function Layout() {
   return (
-    <div className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-neutral-app-bg text-text-primary">
+    <div className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-neutral-app-bg text-text-primary bg-carto-grid">
       <Header />
-
       <Main>
         <Outlet />
       </Main>
-
       <Footer />
     </div>
   );

@@ -15,9 +15,9 @@ function CompareCard({
   const dropdownRef = useRef(null);
 
   const activeCountry = selectedCountry || defaultCountry;
-  const { names, flag } = activeCountry || {};
-  const src = flag?.url_png || activeCountry?.flag?.url_png || "";
-  const commonName = names?.common || activeCountry?.names?.common || "Country";
+  const { names, flag, capitals, region, population } = activeCountry || {};
+  const src = flag?.url_png || activeCountry?.flag?.url_svg || "";
+  const commonName = names?.common || "Select Country";
   const alt = `${commonName} flag`;
 
   const targetText = debouncedSearchInput.trim().toLowerCase();
@@ -44,38 +44,62 @@ function CompareCard({
     setShowDropdown(false);
   }
 
+  const isA = value === "A";
+
   return (
     <div
       ref={dropdownRef}
-      className="w-full max-w-2xl px-6 py-6 md:px-10 bg-neutral-card-bg rounded-2xl border border-neutral-border shadow-sm relative"
+      className="w-full max-w-2xl px-6 py-8 md:px-10 bg-neutral-card-bg rounded-2xl border border-neutral-border shadow-xs relative flex flex-col justify-between"
     >
-      <h3
-        className={`text-lg uppercase font-bold mb-6 ${
-          value === "A" ? "text-blue-700" : "text-green-700"
-        }`}
-      >
-        country {value}
-      </h3>
+      <div className="flex items-center justify-between mb-6">
+        <span
+          className={`font-mono text-xs uppercase font-bold tracking-widest px-3 py-1 rounded-md border ${
+            isA
+              ? "bg-blue-50 text-brand-blue border-blue-200"
+              : "bg-orange-50 text-brand-accent border-orange-200"
+          }`}
+        >
+          Territory {value}
+        </span>
+        <span className="font-mono text-xs text-text-secondary">
+          {activeCountry?.codes?.alpha_2 || ""}
+        </span>
+      </div>
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 lg:gap-12">
-        <img
-          loading="lazy"
-          src={src}
-          alt={alt}
-          className="h-32 w-full max-w-xs object-cover rounded-lg shadow-md lg:w-48 bg-neutral-100"
-        />
-        <div className="flex flex-col gap-4 items-start h-full w-full">
-          <h2 className="font-bold text-3xl text-text-primary mt-0 self-start">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 lg:gap-10">
+        <div className="h-28 w-44 rounded-xl overflow-hidden border border-neutral-border bg-neutral-subtle shrink-0 shadow-2xs">
+          {src ? (
+            <img
+              loading="lazy"
+              src={src}
+              alt={alt}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="h-full w-full flex items-center justify-center font-mono text-xs text-text-secondary">
+              No Flag
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-1 min-w-0">
+          <h2 className="font-display font-bold text-3xl text-text-primary tracking-tight truncate" title={commonName}>
             {commonName}
           </h2>
+          <p className="text-sm font-medium text-text-secondary">
+            {region || "N/A"} &bull; {capitals?.[0]?.name || "N/A"}
+          </p>
+          <p className="font-mono text-xs font-bold text-text-primary pt-1">
+            Pop: {typeof population === "number" ? population.toLocaleString() : (population || "N/A")}
+          </p>
         </div>
       </div>
 
-      <p className="text-text-secondary text-base sm:text-lg mt-8 font-semibold">
-        Search for another country to compare with {commonName}.
+      <p className="text-text-secondary text-base sm:text-lg mt-8 font-medium">
+        Search to benchmark another territory against {commonName}.
       </p>
 
-      <div className="relative mt-5">
+      <div className="relative mt-4">
         <input
           value={searchInput}
           onChange={(e) => {
@@ -85,8 +109,8 @@ function CompareCard({
           onFocus={() => {
             if (searchInput.trim()) setShowDropdown(true);
           }}
-          className="w-full max-w-full rounded-xl border border-neutral-border bg-neutral-card-bg px-6 py-4 text-text-primary font-semibold text-lg shadow-xs outline-none transition focus:border-brand-blue"
-          placeholder="Search for a country"
+          className="w-full rounded-xl border border-neutral-border bg-neutral-card-bg px-5 py-3.5 text-text-primary font-semibold text-lg shadow-2xs outline-none transition focus:border-brand-blue"
+          placeholder="Search nation name..."
         />
 
         {showDropdown && matchingCountries.length > 0 && (
@@ -95,12 +119,12 @@ function CompareCard({
               <li
                 key={c.uuid || c.codes?.alpha_2}
                 onClick={() => handleSelect(c)}
-                className="px-6 py-3 hover:bg-brand-light cursor-pointer flex items-center justify-between transition-colors text-lg"
+                className="px-5 py-3 hover:bg-neutral-subtle cursor-pointer flex items-center justify-between transition-colors text-base"
               >
                 <span className="font-semibold text-text-primary">
                   {c.names?.common}
                 </span>
-                <span className="text-sm text-text-secondary uppercase">
+                <span className="font-mono text-xs text-text-secondary uppercase">
                   {c.region}
                 </span>
               </li>

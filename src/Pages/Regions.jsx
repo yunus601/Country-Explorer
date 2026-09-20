@@ -21,32 +21,36 @@ function Regions() {
   if (isError) return <p className="text-xl text-red-500 text-center py-12">{error?.message || "Failed to load regions"}</p>;
 
   const africa = regions.filter(
-    (country) => country?.region?.toLowerCase() === "africa",
+    (country) => country?.region?.toLowerCase() === "africa"
   );
   const americas = regions.filter(
-    (country) => country?.region?.toLowerCase() === "americas",
+    (country) => country?.region?.toLowerCase() === "americas"
   );
   const asia = regions.filter(
-    (country) => country?.region?.toLowerCase() === "asia",
+    (country) => country?.region?.toLowerCase() === "asia"
   );
   const europe = regions.filter(
-    (country) => country?.region?.toLowerCase() === "europe",
+    (country) => country?.region?.toLowerCase() === "europe"
   );
   const oceania = regions.filter(
-    (country) => country?.region?.toLowerCase() === "oceania",
+    (country) => country?.region?.toLowerCase() === "oceania"
   );
 
   return (
-    <div className="px-4 sm:px-12 py-6 text-lg">
-      <h1 className="font-bold tracking-wider text-4xl sm:text-5xl leading-tight text-text-primary">
-        Explore by region
-      </h1>
-      <p className="text-text-secondary sm:text-xl tracking-wide mt-4 font-medium max-w-3xl">
-        Navigate the globe through its major continental divisions. Access
-        demographic insights, geographical data, and institutional records for
-        every sovereign territory.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-16">
+    <div className="space-y-10 py-6 px-4 sm:px-8">
+      <header className="border-b border-neutral-border pb-8 space-y-2">
+        <span className="font-mono text-xs uppercase font-bold tracking-widest text-brand-blue block">
+          Macro-Geography &bull; Continental Divisions
+        </span>
+        <h1 className="font-display font-bold tracking-tight text-4xl sm:text-5xl text-text-primary">
+          Explore by Continental Region
+        </h1>
+        <p className="text-text-secondary text-xl max-w-3xl font-normal leading-relaxed">
+          Navigate the globe through its major continental landmasses. Access demographic aggregates, geographical data, and institutional territory counts.
+        </p>
+      </header>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <RegionsCard
           region={africa}
           src="/images/africa.jpg"

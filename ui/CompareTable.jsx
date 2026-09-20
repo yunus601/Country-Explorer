@@ -1,14 +1,12 @@
 import formatPopulation from "../utils/formatPopulation";
 
 function CompareTable({ countryA, countryB }) {
-  const countryApopulation = Number(countryA?.population) || 0;
-  const countryBpopulation = Number(countryB?.population) || 0;
-
-  const ishigherPopulation = countryApopulation > countryBpopulation;
-  const higherPopulation = Math.max(countryApopulation, countryBpopulation) || 1;
-
-  const rangeValueA = Math.round((countryApopulation / higherPopulation) * 100);
-  const rangeValueB = Math.round((countryBpopulation / higherPopulation) * 100);
+  const popA = Number(countryA?.population) || 0;
+  const popB = Number(countryB?.population) || 0;
+  const maxPop = Math.max(popA, popB) || 1;
+  const rangeValueA = Math.round((popA / maxPop) * 100);
+  const rangeValueB = Math.round((popB / maxPop) * 100);
+  const ishigherPop = popA > popB;
 
   const flagA = countryA?.flag?.url_png || countryA?.flag?.url_svg || "";
   const flagB = countryB?.flag?.url_png || countryB?.flag?.url_svg || "";
@@ -16,112 +14,136 @@ function CompareTable({ countryA, countryB }) {
   const languagesA = countryA?.languages?.map((l) => l.name).filter(Boolean).join(", ") || "N/A";
   const languagesB = countryB?.languages?.map((l) => l.name).filter(Boolean).join(", ") || "N/A";
 
-  const currencyA = countryA?.currencies?.[0]?.code || countryA?.currencies?.[0]?.name || "N/A";
-  const currencyB = countryB?.currencies?.[0]?.code || countryB?.currencies?.[0]?.name || "N/A";
+  const currencyA = countryA?.currencies?.[0]?.name ? `${countryA.currencies[0].name} (${countryA.currencies[0].code || ''})` : "N/A";
+  const currencyB = countryB?.currencies?.[0]?.name ? `${countryB.currencies[0].name} (${countryB.currencies[0].code || ''})` : "N/A";
+
+  const areaA = Number(countryA?.area?.kilometers || countryA?.area?.miles || countryA?.area) || 0;
+  const areaB = Number(countryB?.area?.kilometers || countryB?.area?.miles || countryB?.area) || 0;
 
   return (
-    <div className="@container mt-6 lg:px-16 w-full lg:w-3/4 mx-auto text-xl tracking-wider overflow-x-auto">
-      <div className="min-w-[500px] rounded-2xl border border-neutral-border bg-neutral-card-bg shadow-sm overflow-hidden grid grid-cols-[1fr_1fr_1fr] gap-x-4 gap-y-2 divide-y divide-neutral-border @lg:gap-x-6">
-        <div className="col-span-3 grid grid-cols-subgrid bg-neutral-app-bg px-4 py-3 font-bold uppercase tracking-[0.18em] text-text-primary @lg:px-6 @lg:py-4">
-          <div className="text-lg flex items-center">INDICATOR</div>
-          <div className="text-lg flex items-center gap-4">
+    <div className="@container mt-8 lg:px-8 w-full max-w-5xl mx-auto text-lg tracking-normal overflow-x-auto">
+      <div className="min-w-[560px] rounded-2xl border border-neutral-border bg-neutral-card-bg shadow-xs overflow-hidden grid grid-cols-[1.2fr_1fr_1fr] divide-y divide-neutral-border">
+        {/* Ledger Header */}
+        <div className="col-span-3 grid grid-cols-subgrid bg-neutral-subtle px-6 py-4 font-mono text-xs font-bold uppercase tracking-widest text-text-secondary items-center">
+          <div>STATISTICAL INDICATOR</div>
+          <div className="flex items-center gap-3">
             {flagA && (
-              <span>
-                <img
-                  className="object-cover h-12 w-16 rounded-md"
-                  src={flagA}
-                  alt=""
-                />
-              </span>
+              <img
+                className="object-cover h-6 w-9 rounded-sm border border-neutral-border"
+                src={flagA}
+                alt=""
+              />
             )}
-            <span className="truncate">{countryA?.names?.common || "Country A"}</span>
+            <span className="truncate font-sans font-bold text-sm text-text-primary">
+              {countryA?.names?.common || "Territory A"}
+            </span>
           </div>
-          <div className="text-lg flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {flagB && (
-              <span>
-                <img
-                  className="object-cover h-12 w-16 rounded-md"
-                  src={flagB}
-                  alt=""
-                />
-              </span>
+              <img
+                className="object-cover h-6 w-9 rounded-sm border border-neutral-border"
+                src={flagB}
+                alt=""
+              />
             )}
-            <span className="truncate">{countryB?.names?.common || "Country B"}</span>
+            <span className="truncate font-sans font-bold text-sm text-text-primary">
+              {countryB?.names?.common || "Territory B"}
+            </span>
           </div>
         </div>
 
-        <div className="col-span-3 grid grid-cols-subgrid py-4 px-4 bg-neutral-card-bg text-text-secondary @lg:py-5 @lg:px-6">
-          <div className="font-semibold text-text-primary">Population</div>
-          <div
-            className={`font-medium ${
-              ishigherPopulation ? "text-brand-accent" : "text-gray-400"
-            } text-2xl @lg:text-3xl uppercase`}
-          >
-            <span>{formatPopulation(countryA?.population)}</span>
-            <div className="mt-5 w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+        {/* Indicator Row: Population */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div>
+            <span className="font-bold text-text-primary block text-base">Population</span>
+            <span className="font-mono text-xs text-text-secondary">Inhabitants</span>
+          </div>
+          <div className="space-y-2">
+            <span className={`font-bold text-2xl ${ishigherPop ? "text-brand-blue" : "text-text-primary"}`}>
+              {formatPopulation(popA)}
+            </span>
+            <div className="w-full h-2 bg-neutral-subtle rounded-full overflow-hidden border border-neutral-border/50">
               <div
                 style={{ width: `${rangeValueA}%` }}
-                className={`h-full rounded-full ${
-                  ishigherPopulation ? "bg-brand-accent" : "bg-gray-400"
-                }`}
+                className="h-full rounded-full bg-brand-blue transition-all duration-300"
               />
             </div>
           </div>
-          <div
-            className={`font-medium ${
-              !ishigherPopulation ? "text-brand-accent" : "text-gray-400"
-            } text-2xl @lg:text-3xl uppercase`}
-          >
-            <span>{formatPopulation(countryB?.population)}</span>
-            <div className="mt-5 w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="space-y-2">
+            <span className={`font-bold text-2xl ${!ishigherPop ? "text-brand-accent" : "text-text-primary"}`}>
+              {formatPopulation(popB)}
+            </span>
+            <div className="w-full h-2 bg-neutral-subtle rounded-full overflow-hidden border border-neutral-border/50">
               <div
                 style={{ width: `${rangeValueB}%` }}
-                className={`h-full rounded-full ${
-                  !ishigherPopulation ? "bg-brand-accent" : "bg-gray-400"
-                }`}
+                className="h-full rounded-full bg-brand-accent transition-all duration-300"
               />
             </div>
           </div>
         </div>
 
-        <div className="col-span-3 grid grid-cols-subgrid py-4 px-4 bg-neutral-card-bg text-text-secondary @lg:py-5 @lg:px-6">
-          <div className="font-semibold text-text-primary">Region</div>
-          <div className="font-medium p-2 bg-brand-accent text-blue-50 w-full sm:w-1/2 rounded-lg text-center uppercase shadow-sm">
-            {countryA?.region || "N/A"}
+        {/* Indicator Row: Surface Area */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div>
+            <span className="font-bold text-text-primary block text-base">Surface Area</span>
+            <span className="font-mono text-xs text-text-secondary">Square Kilometers</span>
           </div>
-          <div className="font-medium p-2 bg-brand-accent text-blue-50 w-full sm:w-1/2 rounded-lg text-center uppercase shadow-sm">
-            {countryB?.region || "N/A"}
+          <div className="font-medium text-text-primary text-xl">
+            {areaA ? `${areaA.toLocaleString()} km²` : "N/A"}
+          </div>
+          <div className="font-medium text-text-primary text-xl">
+            {areaB ? `${areaB.toLocaleString()} km²` : "N/A"}
           </div>
         </div>
 
-        <div className="col-span-3 grid grid-cols-subgrid py-4 px-4 bg-neutral-card-bg text-text-secondary @lg:py-5 @lg:px-6">
-          <div className="font-semibold text-text-primary">Subregion</div>
-          <div className="font-medium">{countryA?.subregion || "N/A"}</div>
-          <div className="font-medium">{countryB?.subregion || "N/A"}</div>
+        {/* Indicator Row: Continental Division */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div className="font-bold text-text-primary text-base">Continental Division</div>
+          <div>
+            <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 bg-neutral-subtle rounded-md border border-neutral-border text-text-primary inline-block">
+              {countryA?.region || "N/A"}
+            </span>
+          </div>
+          <div>
+            <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 bg-neutral-subtle rounded-md border border-neutral-border text-text-primary inline-block">
+              {countryB?.region || "N/A"}
+            </span>
+          </div>
         </div>
 
-        <div className="col-span-3 grid grid-cols-subgrid py-4 px-4 bg-neutral-card-bg text-text-secondary @lg:py-5 @lg:px-6">
-          <div className="font-semibold text-text-primary">Capital</div>
-          <div className="font-medium">{countryA?.capitals?.[0]?.name || "N/A"}</div>
-          <div className="font-medium">{countryB?.capitals?.[0]?.name || "N/A"}</div>
+        {/* Indicator Row: Subregion */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div className="font-bold text-text-primary text-base">Subregion</div>
+          <div className="font-medium text-text-primary">{countryA?.subregion || "N/A"}</div>
+          <div className="font-medium text-text-primary">{countryB?.subregion || "N/A"}</div>
         </div>
 
-        <div className="col-span-3 grid grid-cols-subgrid py-4 px-4 bg-neutral-card-bg text-text-secondary @lg:py-5 @lg:px-6">
-          <div className="font-semibold text-text-primary">Languages</div>
-          <div className="font-medium">{languagesA}</div>
-          <div className="font-medium">{languagesB}</div>
+        {/* Indicator Row: Capital City */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div className="font-bold text-text-primary text-base">Capital City</div>
+          <div className="font-medium text-text-primary">{countryA?.capitals?.[0]?.name || "N/A"}</div>
+          <div className="font-medium text-text-primary">{countryB?.capitals?.[0]?.name || "N/A"}</div>
         </div>
 
-        <div className="col-span-3 grid grid-cols-subgrid py-4 px-4 bg-neutral-card-bg text-text-secondary @lg:py-5 @lg:px-6">
-          <div className="font-semibold text-text-primary">Currencies</div>
-          <div className="font-medium">{currencyA}</div>
-          <div className="font-medium">{currencyB}</div>
+        {/* Indicator Row: Languages */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div className="font-bold text-text-primary text-base">Official Languages</div>
+          <div className="font-medium text-text-primary text-base leading-relaxed">{languagesA}</div>
+          <div className="font-medium text-text-primary text-base leading-relaxed">{languagesB}</div>
         </div>
 
-        <div className="col-span-3 grid grid-cols-subgrid py-4 px-4 bg-neutral-card-bg text-text-secondary @lg:py-5 @lg:px-6">
-          <div className="font-semibold text-text-primary">Timezones</div>
-          <div className="font-medium">{countryA?.timezones?.[0] || "N/A"}</div>
-          <div className="font-medium">{countryB?.timezones?.[0] || "N/A"}</div>
+        {/* Indicator Row: Currencies */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div className="font-bold text-text-primary text-base">Monetary System</div>
+          <div className="font-medium text-text-primary text-base">{currencyA}</div>
+          <div className="font-medium text-text-primary text-base">{currencyB}</div>
+        </div>
+
+        {/* Indicator Row: Timezones */}
+        <div className="col-span-3 grid grid-cols-subgrid py-5 px-6 bg-neutral-card-bg text-text-secondary items-center">
+          <div className="font-bold text-text-primary text-base">Timezone Records</div>
+          <div className="font-mono text-sm text-text-primary">{countryA?.timezones?.[0] || "N/A"}</div>
+          <div className="font-mono text-sm text-text-primary">{countryB?.timezones?.[0] || "N/A"}</div>
         </div>
       </div>
     </div>
