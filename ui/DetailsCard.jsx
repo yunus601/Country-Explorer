@@ -16,7 +16,7 @@ function DetailsCard({ label, value }) {
         {label}
       </p>
       <p className="font-bold text-lg lg:text-xl text-text-primary line-clamp-2">
-        {value}
+        {value || "N/A"}
       </p>
     </div>
   );

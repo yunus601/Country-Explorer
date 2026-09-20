@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import Home from "../src/Pages/Home";
+import Home from "./Pages/Home";
 import Compare from "./Pages/Compare";
 import Regions from "./Pages/Regions";
 import Layout from "./Pages/Layout";
@@ -7,7 +7,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import CountryDetails from "./Pages/CountryDetails";
 import Map from "./Pages/Map";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 30, // 30 minutes
+    },
+  },
+});
 
 function App() {
   return (

@@ -1,11 +1,14 @@
 function formatPopulation(population) {
+  if (population === undefined || population === null || isNaN(Number(population))) {
+    return "N/A";
+  }
   const compactFormatter = new Intl.NumberFormat("en-US", {
     notation: "compact",
-    compactDisplay: "short", // Options: 'short' (1.4B) or 'long' (1.4 billion)
-    maximumFractionDigits: 1, // Controls decimal rounding precision
+    compactDisplay: "short",
+    maximumFractionDigits: 1,
   });
 
-  return compactFormatter.format(population);
+  return compactFormatter.format(Number(population));
 }
 
 export default formatPopulation;

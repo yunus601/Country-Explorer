@@ -1,14 +1,15 @@
 function formatArea(area) {
+  if (area === undefined || area === null || isNaN(Number(area))) {
+    return "N/A";
+  }
   const Areaformatter = new Intl.NumberFormat("en-US", {
-    // Make users locale dynamic
     style: "unit",
     unit: "mile",
     unitDisplay: "short",
     maximumFractionDigits: 1,
-    maximumSignificantDigits: 3,
   });
 
-  return Areaformatter.format(area);
+  return Areaformatter.format(Number(area));
 }
 
 export default formatArea;

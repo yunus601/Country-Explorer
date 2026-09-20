@@ -6,7 +6,7 @@ const override = {
 
 function Spinner() {
   return (
-    <div className="flex min-h-[50vh] items-center justify-center">
+    <div className="flex min-h-[40vh] items-center justify-center py-12">
       <ClipLoader color="#1d4ed8" size={48} cssOverride={override} />
     </div>
   );
